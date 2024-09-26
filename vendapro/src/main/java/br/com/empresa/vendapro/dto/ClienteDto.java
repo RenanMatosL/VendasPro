@@ -6,6 +6,8 @@ import java.util.Date;
 import br.com.empresa.vendapro.enuns.StatusClienteAtivo;
 import br.com.empresa.vendapro.validacao.ValidacaoAlteracao;
 import br.com.empresa.vendapro.validacao.ValidacaoCadastro;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -29,6 +31,11 @@ public class ClienteDto implements Serializable {
 	private Date dataCadastro;
 
 	private StatusClienteAtivo statusClienteAtivo;
+	
+	@Email(message = "email deve ser válido")
+	@NotBlank(message = "email deve ser obrigatório")  
+	private String email;
+
 
 	public Long getIdCliente() {
 		return idCliente;

@@ -58,8 +58,7 @@ public class Cliente implements Serializable {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Pedido> listaPedidos = new ArrayList();
 
-	@Email(message = "email deve ser válido")
-	@NotBlank(message = "email deve ser obrigatório") //MOVER ANOTAÇÕES BEAN VALIDATIO PARA OS DTOS
+	
 	@Column(name = "EMAIL", nullable = false)
 	private String email;
 
