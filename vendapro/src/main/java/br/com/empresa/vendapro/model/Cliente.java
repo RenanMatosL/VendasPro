@@ -29,7 +29,7 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "CLIENTE", schema = "dbo")
 public class Cliente implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,20 +58,24 @@ public class Cliente implements Serializable {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Pedido> listaPedidos = new ArrayList();
 
-	
 	@Column(name = "EMAIL", nullable = false)
 	private String email;
 
+	@Column(name = "TELEFONE")
+	private String telefone;
+
+	@Column(name = "CEP", nullable = false)
+	private String cep; // CEP do cliente
+
+	@OneToMany(mappedBy = "cliente")
+	private List<Feedback> feedbacks;
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public Long getIdCliente() {
 		return idCliente;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getNome() {
@@ -96,6 +100,26 @@ public class Cliente implements Serializable {
 
 	public List<Pedido> getListaPedidos() {
 		return listaPedidos;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public List<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public static void setSerialversionuid(long serialversionuid) {
+		serialVersionUID = serialversionuid;
 	}
 
 	public void setIdCliente(Long idCliente) {
@@ -126,6 +150,22 @@ public class Cliente implements Serializable {
 		this.listaPedidos = listaPedidos;
 	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public void setFeedbacks(List<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(idCliente);
@@ -142,5 +182,7 @@ public class Cliente implements Serializable {
 		Cliente other = (Cliente) obj;
 		return Objects.equals(idCliente, other.idCliente);
 	}
+
+	
 
 }

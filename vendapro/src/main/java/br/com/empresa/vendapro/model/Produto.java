@@ -44,8 +44,23 @@ public class Produto implements Serializable {
 	@Column(name = "TAMANHO", length = 20)
 	private String tamanho;
 
+	@Column(name = "PESO")
+	private double peso;
+
+	@Column(name = "ALTURA", nullable = false)
+	private Double altura; // em cm
+
+	@Column(name = "LARGURA", nullable = false)
+	private Double largura; // em cm
+
+	@Column(name = "PROFUNDIDADE", nullable = false)
+	private Double profundidade; // em cm
+
 	@Column(name = "ESTOQUE", nullable = false)
 	private Integer estoque; // Quantidade em estoque
+
+	@Column(name = "CEP_ORIGEM", nullable = false)
+	private String cepOrigem; // CEP de origem do produto
 
 	public Long getIdProduto() {
 		return idProduto;
@@ -71,8 +86,28 @@ public class Produto implements Serializable {
 		return tamanho;
 	}
 
+	public double getPeso() {
+		return peso;
+	}
+
+	public Double getAltura() {
+		return altura;
+	}
+
+	public Double getLargura() {
+		return largura;
+	}
+
+	public Double getProfundidade() {
+		return profundidade;
+	}
+
 	public Integer getEstoque() {
 		return estoque;
+	}
+
+	public String getCepOrigem() {
+		return cepOrigem;
 	}
 
 	public void setIdProduto(Long idProduto) {
@@ -99,8 +134,28 @@ public class Produto implements Serializable {
 		this.tamanho = tamanho;
 	}
 
+	public void setPeso(double peso) {
+		this.peso = peso;
+	}
+
+	public void setAltura(Double altura) {
+		this.altura = altura;
+	}
+
+	public void setLargura(Double largura) {
+		this.largura = largura;
+	}
+
+	public void setProfundidade(Double profundidade) {
+		this.profundidade = profundidade;
+	}
+
 	public void setEstoque(Integer estoque) {
 		this.estoque = estoque;
+	}
+
+	public void setCepOrigem(String cepOrigem) {
+		this.cepOrigem = cepOrigem;
 	}
 
 	@Override
@@ -121,4 +176,5 @@ public class Produto implements Serializable {
 	}
 
 	
+
 }
