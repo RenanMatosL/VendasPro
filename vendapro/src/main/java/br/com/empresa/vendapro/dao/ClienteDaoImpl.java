@@ -3,6 +3,7 @@ package br.com.empresa.vendapro.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.empresa.vendapro.enuns.StatusClienteAtivo;
 import br.com.empresa.vendapro.excecoes.RegistroJaExisteException;
@@ -15,6 +16,7 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 @Repository
+@Transactional
 public class ClienteDaoImpl implements ClienteDao {
 
 	@PersistenceContext
@@ -111,7 +113,7 @@ public class ClienteDaoImpl implements ClienteDao {
 		}
 
 		TypedQuery<Long> typedQuery = entityManager.createQuery(jpql.toString(), Long.class);
-		typedQuery.setParameter("cpfP", cliente.getCpf());
+		typedQuery.setParameter("cpfP", cliente.getDadosCadastro().getCpf());
 
 		if (cliente.getIdCliente() != null) {
 			typedQuery.setParameter("idClienteP", cliente.getIdCliente());

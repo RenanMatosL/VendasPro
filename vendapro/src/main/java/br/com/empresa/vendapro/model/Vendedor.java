@@ -8,10 +8,10 @@ import java.util.Objects;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.empresa.vendapro.enuns.StatusVendedorAtivo;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -25,75 +25,79 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "VENDEDOR", schema = "dbo")
-public class Vendedor implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Vendedor extends Usuario implements Serializable {
+
+	private static long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_VENDEDOR")
 	private Long idVendedor;
 
-	@Column(name = "NOME", length = 250, nullable = false)
-	private String nome;
-
-	@Column(name = "CPF", length = 250, nullable = false, unique = true)
-	private String cpf;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA_NASCIMENTO", nullable = false)
-	private Date dataNascimento;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATA_CADASTRO", nullable = false)
 	private Date dataCadastro;
 
+	@Embedded
+	private DadosCadastro dadosCadastro;
+
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "VENDEDOR_ATIVO", nullable = false)
 	private StatusVendedorAtivo statusVendedorAtivo;
-	
-	@ManyToMany (
-		/*Indica se esse relacionamento deverá ser recuperado nas consultas: EAGER recupera o relacionamento, LAZY não*/
-		fetch = FetchType.LAZY
-	) 
-	/*Em cenário em que na consulta, dentre todas as associações de entidades, houver mais de um relacionamento EAGER ManyToOne ou OneToMany, deverá utilizar coleções do tipo SET 
-	ou indicar que ao invés de JOIN, as associações deverão ser obtidas via sub consultas via FetchMode.SUBSELECT. Isso evita exceções referentes a múltiplos fetch e também duplicidades 
-	nos resultados*/
-    @Fetch(value = FetchMode.SUBSELECT)
-	/*Configurações da tabela auxiliar do relacionamento*/
-	@JoinTable(
-		/*Nome da tabela auxiliar que representa o relacionamento (possui o ID das duas tabelas envolvidas)*/
-		name="VENDEDOR_PRODUTO"
-		/*Nome da coluna referente ao id dessa entidade presente na tabela auxiliar*/
-		,joinColumns = @JoinColumn(name = "ID_VENDEDOR")
-		/*Nome da coluna referente ao id da tabela referenciada presente na tabela auxiliar*/
-		,inverseJoinColumns = @JoinColumn(name = "ID_PRODUTO")
-	)
-	private List<Produto> listaProdutos = new ArrayList();
-	
-	@Column(name = "EMAIL", nullable = false, length = 100, unique = true)
-	private String email;
 
-	@Column(name = "SENHA", nullable = false)
-	private String senha;
+	@ManyToMany(
+			/*
+			 * Indica se esse relacionamento deverá ser recuperado nas consultas: EAGER
+			 * recupera o relacionamento, LAZY não
+			 */
+			fetch = FetchType.LAZY)
+	/*
+	 * Em cenário em que na consulta, dentre todas as associações de entidades,
+	 * houver mais de um relacionamento EAGER ManyToOne ou OneToMany, deverá
+	 * utilizar coleções do tipo SET ou indicar que ao invés de JOIN, as associações
+	 * deverão ser obtidas via sub consultas via FetchMode.SUBSELECT. Isso evita
+	 * exceções referentes a múltiplos fetch e também duplicidades nos resultados
+	 */
+	@Fetch(value = FetchMode.SUBSELECT)
+
+	/* Configurações da tabela auxiliar do relacionamento */
+	@JoinTable(
+
+			/*
+			 * Nome da tabela auxiliar que representa o relacionamento (possui o ID das duas
+			 * tabelas envolvidas)
+			 */
+			name = "VENDEDOR_PRODUTO"
+
+			/* Nome da coluna referente ao id dessa entidade presente na tabela auxiliar */
+			, joinColumns = @JoinColumn(name = "ID_VENDEDOR")
+
+			/*
+			 * Nome da coluna referente ao id da tabela referenciada presente na tabela
+			 * auxiliar
+			 */
+			, inverseJoinColumns = @JoinColumn(name = "ID_PRODUTO"))
+	private List<Produto> listaProdutos = new ArrayList();
+
+	public Vendedor() {
+		super();
+	}
+
+	public Vendedor(Long idVendedor, Date dataCadastro, DadosCadastro dadosCadastro,
+			StatusVendedorAtivo statusVendedorAtivo, List<Produto> listaProdutos) {
+		super();
+		this.idVendedor = idVendedor;
+		this.dataCadastro = dataCadastro;
+		this.dadosCadastro = dadosCadastro;
+		this.statusVendedorAtivo = statusVendedorAtivo;
+		this.listaProdutos = listaProdutos;
+	}
 
 	public Long getIdVendedor() {
 		return idVendedor;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public Date getDataNascimento() {
-		return dataNascimento;
 	}
 
 	public Date getDataCadastro() {
@@ -108,28 +112,12 @@ public class Vendedor implements Serializable {
 		return listaProdutos;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public String getSenha() {
-		return senha;
+	public static void setSerialversionuid(long serialversionuid) {
+		serialVersionUID = serialversionuid;
 	}
 
 	public void setIdVendedor(Long idVendedor) {
 		this.idVendedor = idVendedor;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
 	}
 
 	public void setDataCadastro(Date dataCadastro) {
@@ -144,30 +132,32 @@ public class Vendedor implements Serializable {
 		this.listaProdutos = listaProdutos;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public DadosCadastro getDadosCadastro() {
+		return dadosCadastro;
 	}
 
-	// Este método é chamado para garantir que a senha seja criptografada antes de
-	// ser salva
-	public void setSenha(String senha) {
-		this.senha = new BCryptPasswordEncoder().encode(senha);
+	public void setDadosCadastro(DadosCadastro dadosCadastro) {
+		this.dadosCadastro = dadosCadastro;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idVendedor);
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(idVendedor);
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Vendedor other = (Vendedor) obj;
 		return Objects.equals(idVendedor, other.idVendedor);
 	}
+
 }

@@ -12,6 +12,7 @@ import org.hibernate.annotations.FetchMode;
 import br.com.empresa.vendapro.enuns.StatusClienteAtivo;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,12 +24,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "CLIENTE", schema = "dbo")
-public class Cliente implements Serializable {
+public class Cliente extends Usuario implements Serializable {
 	private static long serialVersionUID = 1L;
 
 	@Id
@@ -36,19 +35,12 @@ public class Cliente implements Serializable {
 	@Column(name = "ID_CLIENTE")
 	private Long idCliente;
 
-	@Column(name = "NOME", length = 250, nullable = false)
-	private String nome;
-
-	@Column(name = "CPF", length = 250, nullable = false, unique = true)
-	private String cpf;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA_NASCIMENTO", nullable = false)
-	private Date dataNascimento;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATA_CADASTRO", nullable = false)
 	private Date dataCadastro;
+	
+	@Embedded
+	private DadosCadastro dadosCadastro;
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "CLIENTE_ATIVO", nullable = false)
@@ -58,36 +50,29 @@ public class Cliente implements Serializable {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Pedido> listaPedidos = new ArrayList();
 
-	@Column(name = "EMAIL", nullable = false)
-	private String email;
-
-	@Column(name = "TELEFONE")
-	private String telefone;
-
-	@Column(name = "CEP", nullable = false)
-	private String cep; // CEP do cliente
-
 	@OneToMany(mappedBy = "cliente")
 	private List<Feedback> feedbacks;
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Cliente() {
+		super();
 	}
+	
+		
+	public Cliente(Long idCliente, Date dataCadastro, DadosCadastro dadosCadastro,
+			StatusClienteAtivo statusClienteAtivo, List<Pedido> listaPedidos, List<Feedback> feedbacks) {
+		super();
+		this.idCliente = idCliente;
+		this.dataCadastro = dataCadastro;
+		this.dadosCadastro = dadosCadastro;
+		this.statusClienteAtivo = statusClienteAtivo;
+		this.listaPedidos = listaPedidos;
+		this.feedbacks = feedbacks;
+	}
+
+
 
 	public Long getIdCliente() {
 		return idCliente;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public Date getDataNascimento() {
-		return dataNascimento;
 	}
 
 	public Date getDataCadastro() {
@@ -102,40 +87,12 @@ public class Cliente implements Serializable {
 		return listaPedidos;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
 	public List<Feedback> getFeedbacks() {
 		return feedbacks;
 	}
 
-	public static void setSerialversionuid(long serialversionuid) {
-		serialVersionUID = serialversionuid;
-	}
-
 	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
 	}
 
 	public void setDataCadastro(Date dataCadastro) {
@@ -148,18 +105,6 @@ public class Cliente implements Serializable {
 
 	public void setListaPedidos(List<Pedido> listaPedidos) {
 		this.listaPedidos = listaPedidos;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
 	}
 
 	public void setFeedbacks(List<Feedback> feedbacks) {
@@ -183,6 +128,12 @@ public class Cliente implements Serializable {
 		return Objects.equals(idCliente, other.idCliente);
 	}
 
-	
+	public DadosCadastro getDadosCadastro() {
+		return dadosCadastro;
+	}
+
+	public void setDadosCadastro(DadosCadastro dadosCadastro) {
+		this.dadosCadastro = dadosCadastro;
+	}
 
 }

@@ -1,5 +1,7 @@
 package br.com.empresa.vendapro.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,15 +19,16 @@ public class Subcategoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idSubcategoria;
 
-	public Subcategoria() {
-	}
-
+	
 	@Column(name = "NOME_SUB_CATEGORIA", length = 250, nullable = false)
 	private String nome;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_CATEGORIA")
 	private Categoria categoria;
+	
+	public Subcategoria() {
+	}
 	
 	// construtor para que na classe DataInitializer a lista de subcategorias possa compilar corretamente.
 	public Subcategoria(String nome, Categoria categoria) {
@@ -56,5 +59,24 @@ public class Subcategoria {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idSubcategoria);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Subcategoria other = (Subcategoria) obj;
+		return Objects.equals(idSubcategoria, other.idSubcategoria);
+	}
+	
+	
 
 }

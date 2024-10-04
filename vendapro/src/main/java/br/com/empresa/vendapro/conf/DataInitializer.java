@@ -191,8 +191,64 @@ public class DataInitializer implements CommandLineRunner {
 		
 				
 		
+		//* Criando categoria 
+				Categoria papelariaEArmarinho = new Categoria();
+					
+		//Setando o nome da categoria criada no BD
+				papelariaEArmarinho.setNomeCategoria("Alimentos e Bebidas");
+				
+		// Criando lista de subcategorias 
+		List<Subcategoria> subcategoriasPapelariaEArmarinho = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+				new Subcategoria("Arte e Trabalhos Manuais", papelariaEArmarinho),
+				new Subcategoria("Artigos de Armarinho", papelariaEArmarinho),
+				new Subcategoria("Materiais Escolares", papelariaEArmarinho),
+				new Subcategoria("Outros", papelariaEArmarinho)
+						);
+				
+		// Setando subcategorias em categoria 	
+		papelariaEArmarinho.setSubcategorias(subcategoriasPapelariaEArmarinho);
+		// Salvando subcategorias em categoria 	
+		categoriaDao.salvarCategoria(papelariaEArmarinho);
+		
+		
+		//* Criando categoria 
+				Categoria bebes = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				bebes.setNomeCategoria("Bebês");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasBebes = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Alimentação e Amamentação", bebes),
+						new Subcategoria("Alimentos para Bebês", bebes),
+						new Subcategoria("Andadores e Mini Veículos", bebes),
+						new Subcategoria("Banho do Bebê", bebes),
+						new Subcategoria("Brinquedos para Bebês", bebes),
+						new Subcategoria("Cercadinho", bebes),
+						new Subcategoria("Chupetas e Mordedores", bebes),
+						new Subcategoria("Higiene e Cuidados com o Bebê", bebes),
+						new Subcategoria("Maternidade", bebes),
+						new Subcategoria("Outros", bebes),
+						new Subcategoria("Passeio do Bebê", bebes),
+						new Subcategoria("Quarto do Bebê", bebes),
+						new Subcategoria("Roupas de Bebê", bebes),
+						new Subcategoria("Saúde do Bebê", bebes),
+						new Subcategoria("Segurança para Bebê", bebes),
+						new Subcategoria("Beleza e Cuidado", bebes),
+						new Subcategoria("", bebes)
+						);
+				
+				// Setando subcategorias em categoria 	
+				bebes.setSubcategorias(subcategoriasBebes);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(bebes);
 			
-		// Criando categoria 
+		
+		//** Criando categoria 
 		Categoria pessoal = new Categoria();
 				
 		//Setando o nome da categoria criada no BD
@@ -321,18 +377,18 @@ public class DataInitializer implements CommandLineRunner {
 		List<Subcategoria> subcategoriasCamerasEAcessorios = List.of(
 						
 				//inserindo subcategorias, e em seguida o nome da categoria criada ao qual essas subcategorias são pertencentes.
-				new Subcategoria("Adultos", camerasEAcessorios),
-				new Subcategoria("Artigos para Fumadores", camerasEAcessorios),
-				new Subcategoria("Birutas de Vento", camerasEAcessorios),
-				new Subcategoria("Coberturas Estendidas", camerasEAcessorios),
-				new Subcategoria("Criptomoedas", camerasEAcessorios),
-				new Subcategoria("Equipamento para Tatuagens", camerasEAcessorios),
-				new Subcategoria("Esoterismo e Ocultismo", camerasEAcessorios),
-				new Subcategoria("Fornos Crematórios", camerasEAcessorios),
-				new Subcategoria("Gift Cards", camerasEAcessorios),
-				new Subcategoria("Kits de Criminologia", camerasEAcessorios),
-				new Subcategoria("Licenças para Taxis", camerasEAcessorios),
-				new Subcategoria("Outros", camerasEAcessorios)
+				new Subcategoria("Acessórios para Câmeras", camerasEAcessorios),
+				new Subcategoria("Cabos", camerasEAcessorios),
+				new Subcategoria("Câmeras", camerasEAcessorios),
+				new Subcategoria("Drones e Acessórios", camerasEAcessorios),
+				new Subcategoria("Equipamento de Revelação", camerasEAcessorios),
+				new Subcategoria("Filmadoras", camerasEAcessorios),
+				new Subcategoria("nstrumentos Ópticos", camerasEAcessorios),
+				new Subcategoria("Lentes e Filtros", camerasEAcessorios),
+				new Subcategoria("Outros", camerasEAcessorios),
+				new Subcategoria("Peças para Câmeras", camerasEAcessorios),
+				new Subcategoria("Álbuns e Porta-retratos", camerasEAcessorios),
+				new Subcategoria("Carros", camerasEAcessorios)
 				);
 				
 		// Salvando subcategorias à categoria alimentosEBebidas no BD
@@ -601,6 +657,452 @@ public class DataInitializer implements CommandLineRunner {
 		categoriaDao.salvarCategoria(ferramentas);
 		
 					
+		//* Criando categoria 
+				Categoria festasELembrancinhas = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				festasELembrancinhas.setNomeCategoria("Festas e Lembrancinhas");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasFestasELembrancinhas = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Artigos para Festas", camerasEAcessorios),
+						new Subcategoria("Convites", camerasEAcessorios),
+						new Subcategoria("Decoração de Festa", camerasEAcessorios),
+						new Subcategoria("Descartáveis para Festa", camerasEAcessorios),
+						new Subcategoria("Equipamento para Festas", camerasEAcessorios),
+						new Subcategoria("Espuma", camerasEAcessorios),
+						new Subcategoria("Serpentinas e Confete", camerasEAcessorios),
+						new Subcategoria("Fantasias y Cosplay", camerasEAcessorios),
+						new Subcategoria("Garrafas", camerasEAcessorios),
+						new Subcategoria("Kits Imprimíveis para Festas", camerasEAcessorios),
+						new Subcategoria("Lembrancinhas", camerasEAcessorios),
+						new Subcategoria("Lembrancinhas para Fiestas", camerasEAcessorios),
+						new Subcategoria("Outros", camerasEAcessorios),
+						new Subcategoria("Plaquinhas para Festas", camerasEAcessorios)
+						);
+				
+				// Setando subcategorias em categoria 	
+				festasELembrancinhas.setSubcategorias(subcategoriasFestasELembrancinhas);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(festasELembrancinhas);
+				
+				
+				//* Criando categoria 
+				Categoria games = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				games.setNomeCategoria("Games");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasGames = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Acessórios para Consoles", games),
+						new Subcategoria("Acessórios para PC Gaming", games),
+						new Subcategoria("Consoles", games),
+						new Subcategoria("Fliperamas e Arcade", games),
+						new Subcategoria("Outros", games),
+						new Subcategoria("Peças para Consoles", games),
+						new Subcategoria("Video Games", games)
+						);
+				
+				// Setando subcategorias em categoria 	
+				games.setSubcategorias(subcategoriasGames);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(games);
+				
+				
+				//* Criando categoria 
+				Categoria imoveis = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				imoveis.setNomeCategoria("Imóveis");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasImoveis = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Apartamentos", imoveis),
+						new Subcategoria("Casas", imoveis),
+						new Subcategoria("Chácaras", imoveis),
+						new Subcategoria("Fazendas", imoveis),
+						new Subcategoria("Flat - Apart Hotel", imoveis),
+						new Subcategoria("Galpões", imoveis),
+						new Subcategoria("Lojas Comerciais", imoveis),
+						new Subcategoria("Outros Imóveis", imoveis),
+						new Subcategoria("Salas Comerciais", imoveis),
+						new Subcategoria("Sítios", imoveis),
+						new Subcategoria("Terrenos", imoveis)
+						);
+				
+				// Setando subcategorias em categoria 	
+				imoveis.setSubcategorias(subcategoriasImoveis);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(imoveis);
+				
+				
+				//* Criando categoria 
+				Categoria industriaEComercio = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				industriaEComercio.setNomeCategoria("Indústria e Comércio");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasIndustriaEComercio = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Arquitetura e Desenho", industriaEComercio),
+						new Subcategoria("Embalagem e Logística", industriaEComercio),
+						new Subcategoria("Equipamento Médico", industriaEComercio),
+						new Subcategoria("Equipamento para Comércios", industriaEComercio),
+						new Subcategoria("Equipamento para Escritórios", industriaEComercio),
+						new Subcategoria("Ferramentas Industriais", industriaEComercio),
+						new Subcategoria("Gastronomia e Hotelaria", industriaEComercio),
+						new Subcategoria("Gráfica e Impressão", industriaEComercio),
+						new Subcategoria("Outros", industriaEComercio),
+						new Subcategoria("Publicidade e Promoção", industriaEComercio),
+						new Subcategoria("Segurança Laboral", industriaEComercio),
+						new Subcategoria("Têxtil e Calçado", industriaEComercio),
+						new Subcategoria("Uniformes e Roupa de Trabalho", industriaEComercio)
+						);
+				
+				// Setando subcategorias em categoria 	
+				industriaEComercio.setSubcategorias(subcategoriasIndustriaEComercio);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(industriaEComercio);
+				
+				
+				//* Criando categoria 
+				Categoria informatica = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				informatica.setNomeCategoria("Informática");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasInformatica = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Acessórios de Antiestática", informatica),
+						new Subcategoria("Acessórios para PC Gaming", informatica),
+						new Subcategoria("Armazenamento", informatica),
+						new Subcategoria("Cabos e Hubs USB", informatica),
+						new Subcategoria("Componentes para PC", informatica),
+						new Subcategoria("Conectividade e Redes", informatica),
+						new Subcategoria("Estabilizadores e No Breaks", informatica),
+						new Subcategoria("Impressão", informatica),
+						new Subcategoria("Leitores e Scanners", informatica),
+						new Subcategoria("Limpeza de Pcs", informatica),
+						new Subcategoria("Monitores e Acessórios", informatica),
+						new Subcategoria("Outros", informatica),
+						new Subcategoria("PC de Mesa", informatica),
+						new Subcategoria("Palms e Handhelds", informatica),
+						new Subcategoria("Periféricos para PC", informatica),
+						new Subcategoria("Portáteis e Acessórios", informatica),
+						new Subcategoria("Projetores e Telas", informatica),
+						new Subcategoria("Softwares", informatica),
+						new Subcategoria("Tablets e Acessórios", informatica)
+						);
+				
+				// Setando subcategorias em categoria 	
+				informatica.setSubcategorias(subcategoriasInformatica);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(informatica);
+				
+				
+				//* Criando categoria 
+				Categoria ingressos = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				ingressos.setNomeCategoria("Alimentos e Bebidas");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasIngressos = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Eventos Esportivos", ingressos),
+						new Subcategoria("Eventos a Benefício", ingressos),
+						new Subcategoria("Exposições", ingressos),
+						new Subcategoria("Ingressos de Coleção", ingressos),
+						new Subcategoria("Outros Ingressos", ingressos),
+						new Subcategoria("Shows", ingressos),
+						new Subcategoria("Teatro e Cultura", ingressos)
+						);
+				
+				// Setando subcategorias em categoria 	
+				ingressos.setSubcategorias(subcategoriasIngressos);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(ingressos);
+				
+				
+				
+				
+				//* Criando categoria 
+				Categoria instrumentosMusicais = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				instrumentosMusicais.setNomeCategoria("Instrumentos Musicais");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasInstrumentosMusicais = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Baterias e Percussão", instrumentosMusicais),
+						new Subcategoria("Caixas de Som", instrumentosMusicais),
+						new Subcategoria("Equipamento para Djs", instrumentosMusicais),
+						new Subcategoria("Estúdio de Gravação", instrumentosMusicais),
+						new Subcategoria("Instrumentos de Corda", instrumentosMusicais),
+						new Subcategoria("Instrumentos de Sopro", instrumentosMusicais),
+						new Subcategoria("Metrônomos", instrumentosMusicais),
+						new Subcategoria("Microfones e Amplificadores", instrumentosMusicais),
+						new Subcategoria("Outros", instrumentosMusicais),
+						new Subcategoria("Partituras e Letras", instrumentosMusicais),
+						new Subcategoria("Pedais e Acessórios", instrumentosMusicais),
+						new Subcategoria("Pianos e Teclados", instrumentosMusicais)
+						);
+				
+				// Setando subcategorias em categoria 	
+				instrumentosMusicais.setSubcategorias(subcategoriasInstrumentosMusicais);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(instrumentosMusicais);
+				
+				
+				//* Criando categoria 
+				Categoria joiasERelogios = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				joiasERelogios.setNomeCategoria("Joias e Relógios");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasJoiasERelogios = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Acessórios Para Relógios", joiasERelogios),
+						new Subcategoria("Artigos de Joalharia", joiasERelogios),
+						new Subcategoria("Canetas e Lapiseiras de Luxo", joiasERelogios),
+						new Subcategoria("Joias e Bijuterias", joiasERelogios),
+						new Subcategoria("Outros", joiasERelogios),
+						new Subcategoria("Pedra Preciosa e Semipreciosa", joiasERelogios),
+						new Subcategoria("Piercings", joiasERelogios),
+						new Subcategoria("Porta Joias", joiasERelogios),
+						new Subcategoria("Relógios", joiasERelogios)						);
+				
+				// Setando subcategorias em categoria 	
+				joiasERelogios.setSubcategorias(subcategoriasJoiasERelogios);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(joiasERelogios);
+				
+				
+				
+				//* Criando categoria 
+				Categoria livrosRevistasEComics = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				livrosRevistasEComics.setNomeCategoria("Livros, Revistas e Comics");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasLivrosRevistasEComics = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Catálogos", livrosRevistasEComics),
+						new Subcategoria("Ebooks", livrosRevistasEComics),
+						new Subcategoria("Livros Físicos", livrosRevistasEComics),
+						new Subcategoria("Outros", livrosRevistasEComics),
+						new Subcategoria("Revistas", livrosRevistasEComics)
+						);
+				
+				// Setando subcategorias em categoria 	
+				livrosRevistasEComics.setSubcategorias(subcategoriasLivrosRevistasEComics);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(livrosRevistasEComics);
+				
+				
+				
+				//* Criando categoria 
+				Categoria musicaFilmesESeriados = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				musicaFilmesESeriados.setNomeCategoria("Música, Filmes e Seriados");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasMusicaFilmesESeriados = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Conteúdo Esportivo", musicaFilmesESeriados),
+						new Subcategoria("Cursos Completos", musicaFilmesESeriados),
+						new Subcategoria("Filmes Físicos", musicaFilmesESeriados),
+						new Subcategoria("Filmes Online", musicaFilmesESeriados),
+						new Subcategoria("Música", musicaFilmesESeriados),
+						new Subcategoria("Outros", musicaFilmesESeriados),
+						new Subcategoria("Seriados", musicaFilmesESeriados),
+						new Subcategoria("Seriados Online", musicaFilmesESeriados),
+						new Subcategoria("Vídeos de Receitas e DIY", musicaFilmesESeriados)
+						);
+				
+				// Setando subcategorias em categoria 	
+				musicaFilmesESeriados.setSubcategorias(subcategoriasMusicaFilmesESeriados);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(musicaFilmesESeriados);
+				
+				
+				//* Criando categoria 
+				Categoria saude = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				saude.setNomeCategoria("Saúde");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasSaude = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Cuidado da Saúde", saude),
+						new Subcategoria("Equipamento Médico", saude),
+						new Subcategoria("Massagem", saude),
+						new Subcategoria("Mobilidade", saude),
+						new Subcategoria("Ortopedia", saude),
+						new Subcategoria("Outros", saude),
+						new Subcategoria("Suplementos Alimentares", saude),
+						new Subcategoria("Terapias Alternativas", saude)
+						);
+				
+				// Setando subcategorias em categoria 	
+				saude.setSubcategorias(subcategoriasSaude);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(saude);
+				
+				
+				
+				//* Criando categoria 
+				Categoria servicos = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				servicos.setNomeCategoria("Serviços");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasServicos = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Academia e Esportes", servicos),
+						new Subcategoria("Animais", servicos),
+						new Subcategoria("Beleza", servicos),
+						new Subcategoria("Estética e Bem Estar", servicos),
+						new Subcategoria("Educação", servicos),
+						new Subcategoria("Festas e Eventos", servicos),
+						new Subcategoria("Gastronomia", servicos),
+						new Subcategoria("Gráficas e Impressão", servicos),
+						new Subcategoria("Lar", servicos),
+						new Subcategoria("Marketing e Internet", servicos),
+						new Subcategoria("Outros Profissionais", servicos),
+						new Subcategoria("Outros Serviços", servicos),
+						new Subcategoria("Saúde", servicos),
+						new Subcategoria("Suporte Técnico", servicos),
+						new Subcategoria("Vestuário", servicos),
+						new Subcategoria("Veículos e Transportes", servicos),
+						new Subcategoria("Viagens e Turismo", servicos)
+						);
+				
+				// Setando subcategorias em categoria 	
+				servicos.setSubcategorias(subcategoriasServicos);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(servicos);
+				
+				
+				
+				//* Criando categoria 
+				Categoria maisCategorias = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				maisCategorias.setNomeCategoria("Mais Categorias");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasMaisCategorias = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Adultos", maisCategorias),
+						new Subcategoria("Artigos para Fumadores", maisCategorias),
+						new Subcategoria("Birutas de Vento", maisCategorias),
+						new Subcategoria("Coberturas Estendidas", maisCategorias),
+						new Subcategoria("Criptomoedas", maisCategorias),
+						new Subcategoria("Equipamento para Tatuagens", maisCategorias),
+						new Subcategoria("Esoterismo e Ocultismo", maisCategorias),
+						new Subcategoria("Fornos Crematórios", maisCategorias),
+						new Subcategoria("Gift Cards", maisCategorias),
+						new Subcategoria("Kits de Criminologia", maisCategorias),
+						new Subcategoria("Licenças para Taxis", maisCategorias),
+						new Subcategoria("Outros", maisCategorias)
+						);
+				
+				// Setando subcategorias em categoria 	
+				maisCategorias.setSubcategorias(subcategoriasMaisCategorias);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(maisCategorias);
+				
+				
+				
+				//* Criando categoria 
+				Categoria artigosParaFumadores = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				artigosParaFumadores.setNomeCategoria("Artigos para Fumadores");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasArtigosParaFumadores = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Armado de Charutos", artigosParaFumadores),
+						new Subcategoria("Bongs para Narguilés", artigosParaFumadores),
+						new Subcategoria("Cachimbos", artigosParaFumadores),
+						new Subcategoria("Caixas de Fósforos", artigosParaFumadores),
+						new Subcategoria("Cigarreiras de Bolso", artigosParaFumadores),
+						new Subcategoria("Cinzeiros", artigosParaFumadores),
+						new Subcategoria("Cortadores de Charutos", artigosParaFumadores),
+						new Subcategoria("Fluídos para Isqueiros", artigosParaFumadores),
+						new Subcategoria("Isqueiros", artigosParaFumadores),
+						new Subcategoria("Narguilés e Acessórios", artigosParaFumadores),
+						new Subcategoria("Outros", artigosParaFumadores),
+						new Subcategoria("Umidores", artigosParaFumadores)
+						);
+				
+				// Setando subcategorias em categoria 	
+				artigosParaFumadores.setSubcategorias(subcategoriasArtigosParaFumadores);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(artigosParaFumadores);
+				
+				
+				
+				//* Criando categoria 
+				Categoria esoterismoEOcultismo = new Categoria();
+					
+				//Setando o nome da categoria criada no BD
+				esoterismoEOcultismo.setNomeCategoria("Alimentos e Bebidas");
+				
+				// Criando lista de subcategorias 
+				List<Subcategoria> subcategoriasEsoterismoEOcultismo = List.of(
+						
+						//inserindo subcategorias, e em seguida o nome da categoria 
+						new Subcategoria("Cartas de Tarot", esoterismoEOcultismo),
+						new Subcategoria("Cálices", esoterismoEOcultismo),
+						new Subcategoria("Incensos", esoterismoEOcultismo),
+						new Subcategoria("Ostensórios", esoterismoEOcultismo),
+						new Subcategoria("Outros", esoterismoEOcultismo),
+						new Subcategoria("Pedras", esoterismoEOcultismo),
+						new Subcategoria("Perfumes", esoterismoEOcultismo),
+						new Subcategoria("Pingentes", esoterismoEOcultismo),
+						new Subcategoria("Porta Incenso", esoterismoEOcultismo),
+						new Subcategoria("Pêndulos", esoterismoEOcultismo),
+						new Subcategoria("Púlpitos", esoterismoEOcultismo),
+						new Subcategoria("Runas", esoterismoEOcultismo),
+						new Subcategoria("Sácrarios", esoterismoEOcultismo),
+						new Subcategoria("Terços", esoterismoEOcultismo),
+						new Subcategoria("Tigelas", esoterismoEOcultismo),
+						new Subcategoria("Velas", esoterismoEOcultismo)
+						);
+				
+				// Setando subcategorias em categoria 	
+				esoterismoEOcultismo.setSubcategorias(subcategoriasEsoterismoEOcultismo);
+				// Salvando subcategorias em categoria 	
+				categoriaDao.salvarCategoria(esoterismoEOcultismo);
 
 	}
 }

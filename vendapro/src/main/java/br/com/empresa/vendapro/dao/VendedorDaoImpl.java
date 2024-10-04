@@ -112,7 +112,7 @@ public class VendedorDaoImpl implements VendedorDao {
 		}
 
 		TypedQuery<Long> typedQuery = entityManager.createQuery(jpql.toString(), Long.class);
-		typedQuery.setParameter("cpfP", vendedor.getCpf());
+		typedQuery.setParameter("cpfP", vendedor.getDadosCadastro().getCpf());
 
 		if (vendedor.getIdVendedor() != null) {
 			typedQuery.setParameter("idVendedorP", vendedor.getIdVendedor());
