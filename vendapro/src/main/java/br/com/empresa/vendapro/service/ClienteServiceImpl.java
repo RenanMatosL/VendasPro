@@ -30,92 +30,179 @@ import jakarta.validation.ConstraintViolation;
 @Service
 public class ClienteServiceImpl implements ClienteService {
 
+	// Objeto de log
 	private static final Log logger = LogFactory.getLog(ClienteServiceImpl.class);
 
+	// Injeção de dependência (será injetada classe que IMPLEMENTA essa interface)
 	@Autowired
 	private ClienteDao clienteDao;
 
+	// Injeção de dependência (será injetada classe que IMPLEMENTA essa interface)
 	@Autowired
+	/*
+	 * Como temos MAIS de um candidato para essa injeção de dependência (mais de uma
+	 * classe implementando essa interface), fazemos uso da anotação @Qualifier para
+	 * indicar o nome do Bean da classe que implementa essa interface que desejamos
+	 * injetar como dependência
+	 */
 	@Qualifier("logAplicacaoBaseDadosServiceImpl")
 	private LogAplicacaoService logAplicacaoService;
 
+	// Injeção de dependência de Bean Validador Bean Validation vinculado com o
+	// MessageSource de nosso arquivo properties de mensagens
 	@Autowired
+	// Indicamos o nome do bean que desejamos injetar
 	@Qualifier("localValidatorFactoryBeanPadrao")
 	private LocalValidatorFactoryBean localValidatorFactoryBean;
 
-	@Transactional(propagation = Propagation.SUPPORTS)
+	// Configuração de transação
+	@Transactional(
+			/*
+			 * Indica ao Spring que o método não precisa ser executado com uma transação,
+			 * onde se JÁ houver uma transação aberta, esse método fará uso dela, mas se NÃO
+			 * houver uma transação aberta, o Spring NÃO deverá criar uma para executar esse
+			 * método
+			 */
+			propagation = Propagation.SUPPORTS)
+	// Indica que o método é implementação de uma interface
 	@Override
-	public List<Cliente> carregarTodosClientes(boolean recuperarPedidos) {
+	// Método que retorna a um List de TODOS Clientes
+	public List<Cliente> carregarTodosClientes(
+			// Indica se a relação de PEDIDOS deverá ser carregada (JOIN realizado), já que
+			// por padrão tal relação é LAZY e não seria carregada
+			boolean recuperarPedidos) {
 		try {
 			return clienteDao.carregarTodosClientes(recuperarPedidos);
 		} catch (Exception e) {
+			// Logar o erro ocorrido
 			logger.error("Erro ao consultar todos os clientes", e);
 
+			// Lançar a exceção original
 			throw e;
 		}
 	}
 
-	@Transactional(propagation = Propagation.SUPPORTS)
+	// Configuração de transação
+	@Transactional(
+			/*
+			 * Indica ao Spring que o método não precisa ser executado com uma transação,
+			 * onde se JÁ houver uma transação aberta, esse método fará uso dela, mas se NÃO
+			 * houver uma transação aberta, o Spring NÃO deverá criar uma para executar esse
+			 * método
+			 */
+			propagation = Propagation.SUPPORTS)
+	// Indica que o método é implementação de uma interface
 	@Override
-	public Cliente consultarClientePorId(Long idCliente, boolean recuperarPedidos) {
+	// Método que retorna um Cliente por seu ID
+	public Cliente consultarClientePorId(Long idCliente,
+			// Indica se a relação de PEDIDOS deverá ser carregada (JOIN realizado), já que
+			// por padrão tal relação é LAZY e não seria carregada
+			boolean recuperarPedidos) {
 		try {
 			return clienteDao.consultarClientePorId(idCliente, recuperarPedidos);
 		} catch (Exception e) {
+			// Logar o erro ocorrido
 			logger.error("Erro ao consultar um cliente por ID. ID_CLIENTE " + idCliente, e);
 
+			// Lançar a exceção original
 			throw e;
 		}
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED)
+	// Configuração de transação
+	@Transactional(
+			/*
+			 * Indica ao Spring que o método deverá ser executado com transação aberta, onde
+			 * se já houver uma transação aberta, deverá utilizar essa transação aberta (ao
+			 * invés de criar nova), caso contrário, deverá criar uma nova transação
+			 */
+			propagation = Propagation.REQUIRED)
+	// Indica que o método é implementação de uma interface
 	@Override
+	// Método que cadastra um novo cliente
 	public Cliente salvarCliente(Cliente cliente) throws RegistroJaExisteException {
 		try {
+			// Via NOVA transação, iremos salvar em log a tentativa de cadastro desse
+			// cliente (antes de realizar de fato o cadastro)
 			logAplicacaoService.salvarLogAplicacao("Tentativa de cadastro de cliente chamado " + cliente.getNome());
 
+			// Indicar informações padrão para novos registros
 			cliente.setDataCadastro(new Date());
 			cliente.setStatusClienteAtivo(StatusClienteAtivo.ATIVO);
 
+			// Cadastrar o cliente em base e retornar essa entidade atualizada (com o ID
+			// preenchido)
 			return clienteDao.salvarCliente(cliente);
 		} catch (RegistroJaExisteException e) {
 			throw e;
 		} catch (Exception e) {
+			// Logar o erro ocorrido
 			logger.error("Erro ao salvar o cliente. Nome cliente: " + cliente.getNome(), e);
 
+			// Lançar a exceção original
 			throw e;
 		}
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED)
+	// Configuração de transação
+	@Transactional(
+			/*
+			 * Indica ao Spring que o método deverá ser executado com transação aberta, onde
+			 * se já houver uma transação aberta, deverá utilizar essa transação aberta (ao
+			 * invés de criar nova), caso contrário, deverá criar uma nova transação
+			 */
+			propagation = Propagation.REQUIRED)
+	// Indica que o método é implementação de uma interface
 	@Override
+	// Método que altera um cliente
 	public Cliente alterarCliente(Cliente cliente) throws RegistroNaoEncontradoException, RegistroJaExisteException {
 		try {
+			/*
+			 * Como NEM todos os atributos da entidade estão liberados para alteração,
+			 * recuperar a entidade com os dados ATUAIS da base e alterar somente os dados
+			 * que possibilitamos tais alterações
+			 */
 
+			// Recuperar a entidade da base com os dados atuais
 			Cliente clienteBase = clienteDao.consultarClientePorId(cliente.getIdCliente(), false);
 
+			// Verificar se o registro foi localizado
 			if (clienteBase == null) {
 				throw new RegistroNaoEncontradoException(
 						"Cliente de idCliente " + cliente.getIdCliente() + " não localizado");
 			}
 
+			// Alterar os atributos que possibilitamos tais alterações
 			clienteBase.setNome(cliente.getNome());
 			clienteBase.setCpf(cliente.getCpf());
 			clienteBase.setDataNascimento(cliente.getDataNascimento());
 
+			// Alterar a entidade em base de dados
 			return clienteDao.alterarCliente(clienteBase);
 		} catch (RegistroJaExisteException e) {
 			throw e;
 		} catch (RegistroNaoEncontradoException e) {
 			throw e;
 		} catch (Exception e) {
+			// Logar o erro ocorrido
 			logger.error("Erro ao alterar o cliente. ID_CLIENTE " + cliente.getIdCliente(), e);
 
+			// Lançar a exceção original
 			throw e;
 		}
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED)
+	// Configuração de transação
+	@Transactional(
+			/*
+			 * Indica ao Spring que o método deverá ser executado com transação aberta, onde
+			 * se já houver uma transação aberta, deverá utilizar essa transação aberta (ao
+			 * invés de criar nova), caso contrário, deverá criar uma nova transação
+			 */
+			propagation = Propagation.REQUIRED)
+	// Indica que o método é implementação de uma interface
 	@Override
+	// Método que altera o status do cliente
 	public void alterarStatusCliente(Long idCliente, StatusClienteAtivo statusClienteAtivo)
 			throws RegistroNaoEncontradoException {
 		try {
@@ -123,13 +210,17 @@ public class ClienteServiceImpl implements ClienteService {
 		} catch (RegistroNaoEncontradoException e) {
 			throw e;
 		} catch (Exception e) {
+			// Logar o erro ocorrido
 			logger.error("Erro ao alterar status do cliente. ID_CLIENTE " + idCliente, e);
 
+			// Lançar a exceção original
 			throw e;
 		}
 	}
 
+	// Indica que o método é implementação de uma interface
 	@Override
+	// Método que recebe uma lista de Cliente e retorna lista de ClienteDto
 	public List<ClienteDto> getListaClienteDtoPorCliente(List<Cliente> listaCliente) {
 		if (listaCliente == null || listaCliente.size() == 0) {
 			return null;
@@ -145,7 +236,9 @@ public class ClienteServiceImpl implements ClienteService {
 		}
 	}
 
+	// Indica que o método é implementação de uma interface
 	@Override
+	// Método que recebe um Cliente e retorna um ClienteDto
 	public ClienteDto getClienteDtoPorCliente(Cliente cliente) {
 		if (cliente != null) {
 			ClienteDto clienteDto = new ClienteDto();
@@ -162,7 +255,9 @@ public class ClienteServiceImpl implements ClienteService {
 		}
 	}
 
+	// Indica que o método é implementação de uma interface
 	@Override
+	// Método que recebe um ClienteDto e retorna um Cliente
 	public Cliente getClientePorClienteDto(ClienteDto clienteDto) {
 		if (clienteDto != null) {
 			Cliente cliente = new Cliente();
@@ -179,37 +274,66 @@ public class ClienteServiceImpl implements ClienteService {
 		}
 	}
 
+	// Indica que o método é implementação de uma interface
 	@Override
+	// Método que valida campos DTO para CADASTRO
 	public void validarClienteDtoParaCadastro(ClienteDto clienteDto) throws RequestInvalidoException {
+		// Validar o registro e recuperar os erros localizados
 		Set<ConstraintViolation<ClienteDto>> listaConstraintViolationErrosValidacao = localValidatorFactoryBean
-				.validate(clienteDto, ValidacaoCadastro.class);
+				.validate(
+						// Objeto a ser validado
+						clienteDto
+						// Interfaces que representam o evento/grupo de validação a ser considerado
+						// (somente serão validados atributos vinculados com essas interfaces)
+						, ValidacaoCadastro.class);
 
+		// Verificar se foram localizados erros nos atributos simples (não validamos
+		// ainda relacionamentos
 		if (listaConstraintViolationErrosValidacao != null && !listaConstraintViolationErrosValidacao.isEmpty()) {
+			// Foram localizados erros. Preparar objeto a ser lançado junto à exceção com a
+			// lista de erros
 			ErrosRequisicao errosRequisicao = new ErrosRequisicao();
 
+			// Iterar pelos erros e popular o objeto a ser retornado junto à exceção
 			for (ConstraintViolation<ClienteDto> constraintViolationErroValidacao : listaConstraintViolationErrosValidacao) {
 				errosRequisicao.getErros()
 						.add(new ErroProcessamento(null, constraintViolationErroValidacao.getMessage()));
 			}
 
 			throw new RequestInvalidoException("Requisição inválida", errosRequisicao, null);
+
 		}
 	}
 
+	// Indica que o método é implementação de uma interface
 	@Override
+	// Método que valida campos DTO para ALTERAÇÃO
 	public void validarClienteDtoParaAlteracao(ClienteDto clienteDto) throws RequestInvalidoException {
+		// Validar o registro e recuperar os erros localizados
 		Set<ConstraintViolation<ClienteDto>> listaConstraintViolationErrosValidacao = localValidatorFactoryBean
-				.validate(clienteDto, ValidacaoAlteracao.class);
+				.validate(
+						// Objeto a ser validado
+						clienteDto
+						// Interfaces que representam o evento/grupo de validação a ser considerado
+						// (somente serão validados atributos vinculados com essas interfaces)
+						, ValidacaoAlteracao.class);
 
+		// Verificar se foram localizados erros nos atributos simples (não validamos
+		// ainda relacionamentos
 		if (listaConstraintViolationErrosValidacao != null && !listaConstraintViolationErrosValidacao.isEmpty()) {
+			// Foram localizados erros. Preparar objeto a ser lançado junto à exceção com a
+			// lista de erros
 			ErrosRequisicao errosRequisicao = new ErrosRequisicao();
 
+			// Iterar pelos erros e popular o objeto a ser retornado junto à exceção
 			for (ConstraintViolation<ClienteDto> constraintViolationErroValidacao : listaConstraintViolationErrosValidacao) {
 				errosRequisicao.getErros()
 						.add(new ErroProcessamento(null, constraintViolationErroValidacao.getMessage()));
 			}
 
 			throw new RequestInvalidoException("Requisição inválida", errosRequisicao, null);
+
 		}
 	}
+
 }

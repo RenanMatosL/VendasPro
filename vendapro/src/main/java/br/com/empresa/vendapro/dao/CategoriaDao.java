@@ -7,18 +7,11 @@ import br.com.empresa.vendapro.excecoes.RegistroJaExisteException;
 import br.com.empresa.vendapro.excecoes.RegistroNaoEncontradoException;
 import br.com.empresa.vendapro.model.Categoria;
 
-public interface CategoriaDao {
+import java.util.List;
 
-	public List<Categoria> carregarTodosCategorias();
-
-	public Categoria consultarCategoriaPorId(Long idCategoria);
-
-	public Categoria salvarCategoria(Categoria categoria) throws RegistroJaExisteException;
-
-	public void alterarCategoria(Categoria categoria)
-			throws RegistroNaoEncontradoException, RegistroJaExisteException;
-
-	public void alterarStatusCategoria(Long idCategoria, StatusCategoriaAtivo statusCategoriaAtivo)
-			throws RegistroNaoEncontradoException;
-
+public interface CategoriaDao{
+	public List<Categoria> carregarTodasCategorias();
+	public Categoria consultarCategoriaPorId(Long idCategoria) ;
+	public Categoria salvarCategoria(Categoria categoria);
+	public Categoria alterarCategoria(Categoria categoria) throws RegistroNaoEncontradoException;
 }

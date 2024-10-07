@@ -49,7 +49,8 @@ public class ClienteDto implements Serializable {
 		return cpf;
 	}
 
-	public Date getDataNascimento() {
+	public @NotNull(message = "{validacao.campo-obrigatorio.dataNascimento}", groups = { ValidacaoCadastro.class,
+			ValidacaoAlteracao.class }) Date getDataNascimento() {
 		return dataNascimento;
 	}
 

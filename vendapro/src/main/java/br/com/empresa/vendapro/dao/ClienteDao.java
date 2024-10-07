@@ -7,6 +7,9 @@ import br.com.empresa.vendapro.excecoes.RegistroJaExisteException;
 import br.com.empresa.vendapro.excecoes.RegistroNaoEncontradoException;
 import br.com.empresa.vendapro.model.Cliente;
 
+
+import java.util.List;
+
 public interface ClienteDao{
 	public List<Cliente> carregarTodosClientes(boolean recuperarPedidos);
 	public Cliente consultarClientePorId(Long idCliente, boolean recuperarPedidos) ;

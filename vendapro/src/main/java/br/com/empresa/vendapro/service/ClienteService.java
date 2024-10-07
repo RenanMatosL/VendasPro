@@ -21,3 +21,5 @@ public interface ClienteService{
 	public void validarClienteDtoParaCadastro(ClienteDto clienteDto) throws RequestInvalidoException;
 	public void validarClienteDtoParaAlteracao(ClienteDto clienteDto) throws RequestInvalidoException;
 }
+
+

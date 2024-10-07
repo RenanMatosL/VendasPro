@@ -26,16 +26,21 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
-@Entity
 @Table(name = "VENDEDOR", schema = "dbo")
 public class Vendedor extends Usuario implements Serializable {
 
-	private static long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_VENDEDOR")
 	private Long idVendedor;
+
+	@Column(name = "NOME", length = 250, nullable = false)
+	private String nome;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATA_CADASTRO", nullable = false)
@@ -112,10 +117,6 @@ public class Vendedor extends Usuario implements Serializable {
 		return listaProdutos;
 	}
 
-	public static void setSerialversionuid(long serialversionuid) {
-		serialVersionUID = serialversionuid;
-	}
-
 	public void setIdVendedor(Long idVendedor) {
 		this.idVendedor = idVendedor;
 	}
@@ -158,6 +159,10 @@ public class Vendedor extends Usuario implements Serializable {
 			return false;
 		Vendedor other = (Vendedor) obj;
 		return Objects.equals(idVendedor, other.idVendedor);
+	}
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
 }

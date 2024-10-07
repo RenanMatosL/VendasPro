@@ -38,7 +38,7 @@
 		</dependency>
 
 
-<!--Dependência da parte do BCrypt (somente com Maven)-->
+		<!--Dependência da parte do BCrypt (somente com Maven)-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -60,8 +60,19 @@
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<version>8.2.2.jre8</version>    
+			<version>8.2.2.jre8</version>
 		</dependency>
+
+		<!--Dependencia do flayway para versionamento de modificações no banco de dados -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-mysql</artifactId>
+		</dependency>
+
 
 		<!--Dependência do JDBC-->
 		<dependency>
@@ -73,7 +84,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-dbcp2</artifactId>
-		<version>2.9.0</version>
+			<version>2.9.0</version>
 		</dependency>
 
 		<!--Bean Validation-->
@@ -87,6 +98,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+
+		<!--Dependência de Token jwt de autenticacao -->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.2.1</version>
 		</dependency>
 
 		<!--Dependência de testes-->

@@ -126,7 +126,7 @@ public class PedidoServiceImpl implements PedidoService {
 		if (pedidoDto != null) {
 			Pedido pedido = new Pedido();
 			pedido.setIdPedido(pedidoDto.getIdPedido());
-			pedido.setCliente(clienteService.consultarClientePorId(pedidoDto.getIdCliente(), false));
+			pedido.setCliente(clienteService.consultarClientePorId(pedidoDto.getIdCliente()));
 			pedido.setDataPedido(pedidoDto.getDataPedido());
 			pedido.setStatusPedido(pedidoDto.getStatusPedido());
 			pedido.setValor(pedidoDto.getValor());
